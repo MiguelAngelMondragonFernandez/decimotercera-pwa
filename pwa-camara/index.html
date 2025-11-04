@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cámara PWA</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        #cameraContainer {
+            display: none; /* Inicialmente oculto */
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        video {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border: 1px solid #ccc;
+            background-color: black;
+        }
+        canvas {
+            display: none; /* Inicialmente oculto */
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cámara PWA</h1>
+
+    <button id="openCamera">Abrir Cámara</button>
+
+    <div id="cameraContainer">
+        <video id="video" autoplay playsinline></video>
+        <button id="takePhoto">Tomar Foto</button>
+    </div>
+
+    <canvas id="canvas"></canvas>
+
+    <script src="app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(registration => {
+                        console.log('Service Worker registrado con éxito:', registration);
+                    })
+                    .catch(error => {
+                        console.error('Fallo el registro del Service Worker:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>
